@@ -41,7 +41,7 @@
 <h3>STEP 5:</h3>
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
 
-
+---
 
 <h3> STEP 1 & 2: Inputs and outputs handled in environment</h3>
 
@@ -66,11 +66,18 @@ def move(self):
 def status(self):
     return f"Location: {self.agent_location}, Rooms: {self.rooms}, Score: {self.performance}"
 ```
-
+---
 <h3>STEP 4:</h3>
-class DoctorAgent: def program(self, env): if env.is_patient_sick(): return "TREAT" else: return "MOVE"
 
-
+```py
+class DoctorAgent: 
+def program(self, env): 
+if env.is_patient_sick(): 
+return "TREAT" 
+else: 
+return "MOVE"
+```
+---
 <h3>Step 5: Run simulation</h3>
 
 ```py
