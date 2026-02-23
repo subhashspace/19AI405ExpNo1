@@ -40,3 +40,58 @@
 <p>Treat unhealthy patients in each room. And check for the unhealthy patients in random room</p>
 <h3>STEP 5:</h3>
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
+
+
+
+<h3> STEP 1 & 2: Inputs and outputs handled in environment</h3>
+
+class HospitalEnvironment: def init(self, rooms=3): # Each room has a patient with random temperature self.rooms = {f"Room{i+1}": random.randint(97, 103) for i in range(rooms)} self.agent_location = "Room1" self.performance = 0
+
+```py
+def is_patient_sick(self):
+    return self.rooms[self.agent_location] >= 100  # fever if temp ≥ 100
+
+def treat(self):
+    if self.is_patient_sick():
+        self.rooms[self.agent_location] = 98  # reset temperature (treated)
+        self.performance += 10
+    else:
+        self.performance -= 1  # unnecessary treatment
+
+def move(self):
+    # move randomly to another room
+    self.agent_location = random.choice(list(self.rooms.keys()))
+    self.performance -= 1
+
+def status(self):
+    return f"Location: {self.agent_location}, Rooms: {self.rooms}, Score: {self.performance}"
+```
+
+<h3>STEP 4:</h3>
+class DoctorAgent: def program(self, env): if env.is_patient_sick(): return "TREAT" else: return "MOVE"
+
+
+<h3>Step 5: Run simulation</h3>
+
+```py
+env = TrivialDoctorEnvironment()
+agent = TableDrivenDoctorAgent()
+
+env.add_thing(agent)
+
+print("Initial:", env.status)
+for step in range(8):
+  action = agent.program(env.percept(agent))
+  if action == "treat":
+    env.execute_action(agent, action)
+  else:
+      env.execute_action(agent, action)
+  print(f"Step {step+1}: Action={action} -> {env.status}")
+
+print("\nFinal Score:", agent.performance)
+
+print("\nFinal Score:", env.performance) ouput
+```
+
+
+<img width="1920" height="1200" alt="Screenshot (49)" src="https://github.com/user-attachments/assets/6edea3d9-af02-4951-9681-3053b4e0ae5a" />
